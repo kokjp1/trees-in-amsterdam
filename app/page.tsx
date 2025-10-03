@@ -41,7 +41,14 @@ export default function HomePage() {
   return (
     <main className="h-screen overflow-y-scroll overflow-x-hidden scroll-smooth snap-y snap-mandatory no-scrollbar">
       <section id="intro" className="snap-start relative min-h-screen flex flex-col justify-center">
-        <Particles className="absolute inset-0" quantity={100} ease={80} staticity={50} color="#008000" size={1.25} />
+        <Particles
+          className="absolute inset-0"
+          quantity={100}
+          ease={160}       
+          staticity={90}    
+          color="#008000"
+          size={1.25}
+        />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold">
             <GradientText text="Bomen&nbsp;" />
