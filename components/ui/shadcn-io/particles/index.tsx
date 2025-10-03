@@ -71,7 +71,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   ],
   iconBaseSize = 16,     // smaller default (was 28)
   iconJitter = 0.2,      // subtle variance
-  rotateDynamic = false, // static random rotation by default
+  rotateDynamic = false, // static random rotation 
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
