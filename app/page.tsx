@@ -1,33 +1,33 @@
 "use client";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import { Particles } from "@/components/ui/shadcn-io/particles";
 import { GradientText } from "@/components/ui/shadcn-io/gradient-text";
 import { motion } from "motion/react";
 
-// Add a global type instead of using 'any'
 declare global {
   interface Window {
-    Flourish?: {
-      init?: () => void;
-    };
+    Flourish?: { init?: () => void };
   }
 }
 
+
 export default function HomePage() {
+  const [currentSection, setCurrentSection] = useState<string>("intro");
+
   useEffect(() => {
     if (!document.getElementById("flourish-script")) {
       const s = document.createElement("script");
       s.id = "flourish-script";
       s.src = "https://public.flourish.studio/resources/embed.js";
       s.async = true;
-      s.onload = () => window.Flourish?.init?.(); // safe optional chain
+      s.onload = () => window.Flourish?.init?.();
       document.body.appendChild(s);
     } else {
-      window.Flourish?.init?.(); // safe optional chain
+      window.Flourish?.init?.();
     }
-
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+
     return () => {
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
@@ -39,13 +39,24 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="h-screen overflow-y-scroll overflow-x-hidden scroll-smooth snap-y snap-mandatory no-scrollbar">
-      <section id="intro" className="snap-start relative min-h-screen flex flex-col justify-center">
+    <main
+      className="
+        relative h-screen overflow-y-scroll overflow-x-hidden
+        scroll-smooth snap-y snap-mandatory no-scrollbar
+        bg-[radial-gradient(circle_at_center,#fff_0%,#fff_20%,#fff_35%,#e4f5ea_100%)]
+        transition-colors
+      "
+    >     {/* Intro */}
+      <section
+        id="intro"
+        data-watch="true"
+        className="snap-start relative min-h-screen flex flex-col justify-center"
+      >
         <Particles
           className="absolute inset-0"
           quantity={100}
-          ease={160}       
-          staticity={90}    
+          ease={160}
+          staticity={90}
           color="#008000"
           size={1.25}
         />
@@ -68,7 +79,11 @@ export default function HomePage() {
 
       <div className="p-8 mx-auto max-w-5xl flex flex-col">
         {/* Section 1 */}
-        <section id="sect-1" className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0">
+        <section
+          id="sect-1"
+          data-watch="true"
+          className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0"
+        >
           <motion.div
             className="md:w-2/5 w-full"
             initial={{ opacity: 0, x: -40 }}
@@ -107,7 +122,11 @@ export default function HomePage() {
         </section>
 
         {/* Section 2 */}
-        <section id="sect-2" className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0">
+        <section
+          id="sect-2"
+          data-watch="true"
+            className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0"
+        >
           <motion.div
             className="md:w-2/5 w-full"
             initial={{ opacity: 0, x: -40 }}
@@ -146,7 +165,11 @@ export default function HomePage() {
         </section>
 
         {/* Section 3 */}
-        <section id="sect-3" className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0">
+        <section
+          id="sect-3"
+          data-watch="true"
+          className="snap-start min-h-screen flex flex-col md:flex-row md:items-center gap-8 pt-16 md:pt-0"
+        >
           <motion.div
             className="md:w-2/5 w-full"
             initial={{ opacity: 0, x: -40 }}
