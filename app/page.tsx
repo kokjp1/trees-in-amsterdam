@@ -21,7 +21,7 @@ export default function HomePage() {
       <p className="mt-4 text-zinc-600">Begin met het opbouwen van de pagina.</p>
 
       {/* Control size here */}
-      <div className="flourish-wrapper" style={{ width: "550px", height: "400px" }}>
+      <div className="flourish-wrapper sm:w-1/2 h-[300px]">
         <div
           className="flourish-embed flourish-scatter"
           data-src="visualisation/25431619"
