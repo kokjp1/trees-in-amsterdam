@@ -65,13 +65,14 @@ export default function HomePage() {
             in Amsterdam
           </h1>
           <p className="mt-6 text-base md:text-lg">
-            De bomen van Amsterdam vormen een levend archief van keuzes, tradities en veranderingen. Met ruim 260.000 goed geregistreerde bomen krijgen we niet alleen inzicht in soorten en maten, maar ook in hoe de stad omgaat met haar groen.
+            {/* De bomen van Amsterdam vormen een levend archief van keuzes, tradities en veranderingen. Met ruim 260.000 goed geregistreerde bomen krijgen we niet alleen inzicht in soorten en maten, maar ook in hoe de stad omgaat met haar groen. */}
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
           </p>
           <button
             onClick={() => scrollTo("sect-1")}
             className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-md"
           >
-            Dive in ↓
+            Klim de boom in ↓
           </button>
         </div>
       </section>
@@ -90,9 +91,13 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <h3 className="text-lg font-semibold">Hoe groot is het Amsterdamse bomenbestand?</h3>
+            <h3 className="text-lg font-semibold">
+              {/* Hoe groot is het Amsterdamse bomenbestand? */}
+              Column chart over de hoogtes van bomen
+              </h3>
             <p className="mt-2 text-sm leading-relaxed">
-              De eerste vraag: hoe hoog zijn de bomen eigenlijk? De meeste bomen vallen in de middenklasse van 6 tot 15 meter, met pieken rond de 9–12 meter en 12–15 meter. Slechts een klein deel haalt de hoogste klassen van 24 meter en meer.
+              {/* De eerste vraag: hoe hoog zijn de bomen eigenlijk? De meeste bomen vallen in de middenklasse van 6 tot 15 meter, met pieken rond de 9–12 meter en 12–15 meter. Slechts een klein deel haalt de hoogste klassen van 24 meter en meer. */}
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
             </p>
             <button
               onClick={() => scrollTo("sect-2")}
@@ -133,9 +138,13 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <h3 className="text-lg font-semibold">Wat verdelt de dikte van een stam over de leeftijd van een boom?</h3>
+            <h3 className="text-lg font-semibold">
+              {/* Wat verdelt de dikte van een stam over de leeftijd van een boom? */}
+              Scatterplot over Stamdiameter
+              </h3>
             <p className="mt-2 text-sm leading-relaxed">
-              Hier zien we hoe de gemiddelde stamdiameter zich verhoudt tot het plantjaar. Oudere bomen hebben gemiddeld dikkere stammen.
+              {/* Hier zien we hoe de gemiddelde stamdiameter zich verhoudt tot het plantjaar. Oudere bomen hebben gemiddeld dikkere stammen. */}
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
             </p>
             <button
               onClick={() => scrollTo("sect-3")}
@@ -176,9 +185,13 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <h3 className="text-lg font-semibold">Wanneer plantte de stad de meeste bomen?</h3>
+            <h3 className="text-lg font-semibold">
+              {/* Wanneer plantte de stad de meeste bomen? */}
+              Sunburst Diagram over aanleggingen
+              </h3>
             <p className="mt-2 text-sm leading-relaxed">
-              De sunburst toont de zes jaren met de meeste aanplantingen. Sommige periodes waren echte plantgolven.
+              {/* De sunburst toont de zes jaren met de meeste aanplantingen. Sommige periodes waren echte plantgolven. */}
+              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
             </p>
             <button
               onClick={() => scrollTo("intro")}
