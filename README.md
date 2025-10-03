@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Natuur in Nederland Onepager (React + Next.js + shadcn/ui + Flourish)
 
-## Getting Started
+## Installatie-instructies
 
-First, run the development server:
+### 1. Vereisten
+- Node.js 18+ en npm of pnpm geïnstalleerd
+- Git (optioneel, voor versiebeheer)
 
+### 2. Project opzetten
 ```bash
+# Maak een nieuwe Next.js app
+npx create-next-app@latest natuur-onepager --typescript --tailwind
+
+cd natuur-onepager
+
+# Installeer shadcn/ui
+npx shadcn-ui@latest init
+
+# Voeg componenten toe die je nodig hebt (bv. button, card, separator)
+npx shadcn-ui@latest add button card separator
+
+# Installeer extra dependencies (optioneel)
+npm install class-variance-authority tailwind-variants lucide-react
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Structuur toevoegen
+- Maak mappen aan volgens de aanbevolen structuur:
+  - `components/core`
+  - `components/charts`
+  - `components/scenes`
+  - `content/copy`
+  - `content/metadata`
+  - `data/raw`
+  - `data/processed`
+  - `lib`
+  - `hooks`
+  - `styles`
+  - `public/images`
+  - `public/exports`
+  - `scripts`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Data voorbereiden
+- Plaats ruwe NDFF / data.amsterdam exports in `/data/raw/`
+- Schrijf scripts in `/scripts/` om ze om te zetten naar `/data/processed/`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Flourish embeds
+- Gebruik `components/charts/FlourishEmbed.tsx` als wrapper
+- Voorzie elke chart van:
+  - Titel
+  - Ondertitel
+  - Bron
+  - Print fallback (`/public/exports/`)
 
-## Learn More
+### 6. Print / PDF versie
+- Voeg `styles/print.css` toe om interactieve elementen te vervangen door statische PNG/SVG bij export.
 
-To learn more about Next.js, take a look at the following resources:
+### 7. Starten en testen
+```bash
+npm run dev      # Dev server starten
+npm run build    # Productiebouw
+npm run start    # Productie server draaien
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deadline
+Prototype online + PDF in Miro: **9 oktober, 15:00**
