@@ -66,8 +66,8 @@ export const Particles: React.FC<ParticlesProps> = ({
   vx = 0,
   vy = 0,
   iconSources = [
-    "/asset1.svg","/asset2.svg","/asset3.svg","/asset4.svg",
-    "/asset5.svg","/asset6.svg","/asset7.svg","/asset8.svg"
+    "/leaf.svg","/leaf2.svg","/leaf3.svg","/leaf4.svg",
+    "/leaf5.svg","/leaf6.svg","/leaf7.svg","/leaf8.svg"
   ],
   iconBaseSize = 16,     // smaller default (was 28)
   iconJitter = 0.2,      // subtle variance
