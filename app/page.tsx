@@ -54,11 +54,11 @@ export default function HomePage() {
       >
         <Particles
           className="absolute inset-0"
-          quantity={100}
+          quantity={50}
           ease={160}
           staticity={90}
           color="#008000"
-          size={1.25}
+          size={0.25}
         />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold">
