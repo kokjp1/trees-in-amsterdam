@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useCallback, useState, useRef } from "react";
+
+import { useEffect, useCallback } from "react";
 import { Particles } from "@/components/ui/shadcn-io/particles";
 import { GradientText } from "@/components/ui/shadcn-io/gradient-text";
 import { motion } from "motion/react";
@@ -12,7 +13,6 @@ declare global {
 
 
 export default function HomePage() {
-  const [currentSection, setCurrentSection] = useState<string>("intro");
 
   useEffect(() => {
     if (!document.getElementById("flourish-script")) {
@@ -58,7 +58,6 @@ export default function HomePage() {
           ease={160}
           staticity={90}
           color="#008000"
-          size={0.25}
         />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-bold">

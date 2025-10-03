@@ -61,7 +61,6 @@ export const Particles: React.FC<ParticlesProps> = ({
   quantity = 100,
   staticity = 50,
   ease = 50,
-  size = 0.4,
   refresh = false,
   color = "#008000",
   vx = 0,
@@ -112,7 +111,6 @@ export const Particles: React.FC<ParticlesProps> = ({
       imgs.push(img);
     });
     return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iconSources.join("|")]);
 
   useEffect(() => {
