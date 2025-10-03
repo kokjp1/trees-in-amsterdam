@@ -120,4 +120,13 @@
     @apply bg-background text-foreground;
   }
 }
-  
+
+.flourish-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.flourish-wrapper .flourish-embed,
+.flourish-wrapper .flourish-embed iframe {
+  width: 100% !important;
+  height: 100% !important;
+}

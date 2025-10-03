@@ -20,13 +20,16 @@ export default function HomePage() {
       <h1 className="text-2xl font-semibold">Natuur in Nederland</h1>
       <p className="mt-4 text-zinc-600">Begin met het opbouwen van de pagina.</p>
 
-      {/* Manually controlled size (change width/height as needed) */}
-      <div
-        className="flourish-embed flourish-scatter"
-        data-src="visualisation/25431619"
-        style={{ width: "900px", height: "420px" }}  /* edit width here */
-        data-width="700" /* optional helper attr if you want to read it later */
-      />
+      {/* Control size here */}
+      <div className="flourish-wrapper" style={{ width: "550px", height: "400px" }}>
+        <div
+          className="flourish-embed flourish-scatter"
+          data-src="visualisation/25431619"
+          data-width="900"
+          data-height="450"
+          aria-label="Scatter"
+        />
+      </div>
     </main>
   );
 }
