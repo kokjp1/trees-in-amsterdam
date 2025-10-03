@@ -94,22 +94,39 @@ export const Particles: React.FC<ParticlesProps> = ({
       return;
     }
     let cancelled = false;
-    const imgs: HTMLImageElement[] = [];
-    let loaded = 0;
-    setIconsReady(false);
+    const loadedImgs: HTMLImageElement[] = [];
+    let processed = 0;
+
+    const finish = () => {
+      if (cancelled) return;
+      // keep only valid images
+      const valid = loadedImgs.filter(i => i.complete && i.naturalWidth > 0);
+      imagesRef.current = valid;
+      setIconsReady(valid.length > 0);
+      if (valid.length === 0) {
+        console.warn("[Particles] No valid icon images loaded. Check /public asset paths.");
+      }
+      initCanvas();
+    };
+
     iconSources.forEach(src => {
       const img = new Image();
-      img.onload = img.onerror = () => {
-        loaded++;
-        if (!cancelled && loaded === iconSources.length) {
-          imagesRef.current = imgs.filter(i => i.complete);
-          setIconsReady(imagesRef.current.length > 0);
-          initCanvas(); // redraw with icons
+      img.onload = () => {
+        if (img.naturalWidth === 0) {
+          console.warn("[Particles] Broken SVG (0 width):", src);
         }
+        loadedImgs.push(img);
+        processed++;
+        if (processed === iconSources.length) finish();
       };
-      img.src = src;
-      imgs.push(img);
+      img.onerror = () => {
+        console.warn("[Particles] Failed to load:", src);
+        processed++;
+        if (processed === iconSources.length) finish();
+      };
+      img.src = src; // must exist in /public
     });
+
     return () => { cancelled = true; };
   }, [iconSources.join("|")]);
 
@@ -190,7 +207,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     if (!context.current) return;
     const ctx = context.current;
 
-    if (p.img) {
+    if (p.img && p.img.complete && p.img.naturalWidth > 0) {
       ctx.save();
       ctx.globalAlpha = p.alpha;
       ctx.translate(p.x + p.translateX, p.y + p.translateY);
@@ -198,7 +215,7 @@ export const Particles: React.FC<ParticlesProps> = ({
       ctx.drawImage(p.img, -(p.w! / 2), -(p.h! / 2), p.w!, p.h!);
       ctx.restore();
     } else if (!useIcons) {
-      // Only draw fallback dots if icons feature disabled entirely
+      // fallback dots only when icon mode disabled
       ctx.save();
       ctx.translate(p.translateX, p.translateY);
       ctx.beginPath();
