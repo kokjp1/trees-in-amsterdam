@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { Particles } from "@/components/ui/shadcn-io/particles";
 import { GradientText } from "@/components/ui/shadcn-io/gradient-text";
 import { motion } from "motion/react";
@@ -11,9 +11,24 @@ declare global {
   }
 }
 
+// Add simple CountUp component
+function CountUp({ end, duration = 1.5 }: { end: number; duration?: number }) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    let start: number | null = null;
+    const total = duration * 1000;
+    const animate = (ts: number) => {
+      if (start === null) start = ts;
+      const progress = Math.min((ts - start) / total, 1);
+      setVal(Math.round(progress * end));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [end, duration]);
+  return <span>{val.toLocaleString("nl-NL")}</span>;
+}
 
 export default function HomePage() {
-
   useEffect(() => {
     if (!document.getElementById("flourish-script")) {
       const s = document.createElement("script");
@@ -68,6 +83,35 @@ export default function HomePage() {
             {/* De bomen van Amsterdam vormen een levend archief van keuzes, tradities en veranderingen. Met ruim 260.000 goed geregistreerde bomen krijgen we niet alleen inzicht in soorten en maten, maar ook in hoe de stad omgaat met haar groen. */}
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
           </p>
+
+          {/* KPIs */}
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl">
+            <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
+              <div className="text-2xl font-bold text-green-800">
+                <CountUp end={263459} duration={2} />
+              </div>
+              <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
+                Geregistreerde bomen
+              </div>
+            </div>
+            <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
+              <div className="text-2xl font-bold text-green-800">
+                <CountUp end={1646} duration={1.8} />
+              </div>
+              <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
+                Unieke (sub)soorten
+              </div>
+            </div>
+            <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
+              <div className="text-2xl font-bold text-green-800">
+                <CountUp end={39815} duration={1.6} /> iepen
+              </div>
+              <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
+                Meest aangelegde boom
+              </div>
+            </div>
+          </div>
+
           <button
             onClick={() => scrollTo("sect-1")}
             className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-md"
@@ -190,7 +234,7 @@ export default function HomePage() {
               Sunburst Diagram over aanleggingen
               </h3>
             <p className="mt-2 text-sm leading-relaxed">
-              {/* De sunburst toont de zes jaren met de meeste aanplantingen. Sommige periodes waren echte plantgolven. */}
+              De sunburst toont de zes jaren met de meeste aanplantingen. Sommige periodes waren echte plantgolven.
               Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
             </p>
             <button
