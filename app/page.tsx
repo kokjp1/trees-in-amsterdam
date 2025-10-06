@@ -84,7 +84,9 @@ export default function HomePage() {
     "sect-3": "#9dc3eb", // Blauw
     "sect-4": "#9fe0a1", // Lichtgroen
   };
-
+// 9dc3eb blauw
+// Oranje d18f56
+// f2e272 lichtgeel
   // Bepaal welke section het meest zichtbaar is binnen de scrollcontainer (<main>)
   useEffect(() => {
     const main = document.querySelector<HTMLDivElement>("main[data-scroll-root='true']");
@@ -180,12 +182,11 @@ export default function HomePage() {
           color="#008000"
         />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
-          <h1 className="text-4xl md:text-6xl font-bold">
-            <GradientText text="Bomen&nbsp;" />
-            in Amsterdam
+          <GradientText text="Een eeuw aan aanplant:&nbsp;" className="text-2xl font-bold"/>
+          <h1 className="text-4xl md:text-3xl font-bold">
+           Hoe de boompopulatie van Amsterdam groeide en verschoven is
           </h1>
           <p className="mt-6 text-base md:text-lg">
-            {/* De bomen van Amsterdam vormen een levend archief van keuzes, tradities en veranderingen. Met ruim 260.000 goed geregistreerde bomen krijgen we niet alleen inzicht in soorten en maten, maar ook in hoe de stad omgaat met haar groen. */}
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
           </p>
 
