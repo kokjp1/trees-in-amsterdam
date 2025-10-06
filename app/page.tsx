@@ -84,9 +84,9 @@ export default function HomePage() {
     "sect-3": "#9dc3eb", // Blauw
     "sect-4": "#9fe0a1", // Lichtgroen
   };
-// 9dc3eb blauw
-// Oranje d18f56
-// f2e272 lichtgeel
+  // 9dc3eb blauw
+  // Oranje d18f56
+  // f2e272 lichtgeel
   // Bepaal welke section het meest zichtbaar is binnen de scrollcontainer (<main>)
   useEffect(() => {
     const main = document.querySelector<HTMLDivElement>("main[data-scroll-root='true']");
@@ -182,19 +182,21 @@ export default function HomePage() {
           color="#008000"
         />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
-          <GradientText text="Een eeuw aan aanplant:&nbsp;" className="text-2xl font-bold"/>
+          <GradientText text="Een eeuw aan aanplant:&nbsp;" className="text-2xl font-bold" />
           <h1 className="text-4xl md:text-3xl font-bold">
-           Hoe de boompopulatie van Amsterdam groeide en verschoven is
+            Hoe de boompopulatie van Amsterdam groeide en veranderd is
           </h1>
           <p className="mt-6 text-base md:text-lg">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            De Amsterdamse bomen vertellen een verhaal van groei, verjonging en verandering.
+            Van de eerste stadsaanplantingen tot hedendaagse vergroening: elke periode liet een eigen stempel achter.
+            Deze visualisatie brengt een eeuw aan stadsnatuur in beeld — hoe duizenden bomen samen het groene karakter van Amsterdam vormen.
           </p>
 
           {/* KPIs */}
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl">
             <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
               <div className="text-2xl font-bold text-green-800">
-                <CountUp end={263459} duration={2} />
+                <CountUp end={263459} duration={1} />
               </div>
               <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
                 Geregistreerde bomen
@@ -202,7 +204,7 @@ export default function HomePage() {
             </div>
             <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
               <div className="text-2xl font-bold text-green-800">
-                <CountUp end={1646} duration={1.8} />
+                <CountUp end={1646} duration={1.2} />
               </div>
               <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
                 Unieke (sub)soorten
@@ -210,7 +212,7 @@ export default function HomePage() {
             </div>
             <div className="rounded-lg bg-white/60 backdrop-blur-sm border border-green-200 p-4 shadow-sm">
               <div className="text-2xl font-bold text-green-800">
-                <CountUp end={39815} duration={1.6} /> iepen
+                <CountUp end={39815} duration={1.4} /> iepen
               </div>
               <div className="mt-1 text-xs uppercase tracking-wide text-green-700 font-medium">
                 Meest aangelegde boom
@@ -222,7 +224,7 @@ export default function HomePage() {
             onClick={() => scrollTo("sect-1")}
             className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-md"
           >
-            Klim de boom in ↓
+            Scroll naar beneden en ontdek hoe het Amsterdamse bomenbestand tot stand kwam. ↓
           </button>
         </div>
       </section>
@@ -265,18 +267,18 @@ export default function HomePage() {
             viewport={{ once: true, amount: 0.4 }}
           >
             <h3 className="text-lg font-semibold">
-              {/* Hoe groot is het Amsterdamse bomenbestand? */}
-              Column chart over de hoogtes van bomen
+              🌿 De boomsoorten van vandaag: wie domineren Amsterdam?
             </h3>
-            <p className="mt-2 text-sm leading-relaxed">
-              {/* De eerste vraag: hoe hoog zijn de bomen eigenlijk? De meeste bomen vallen in de middenklasse van 6 tot 15 meter, met pieken rond de 9–12 meter en 12–15 meter. Slechts een klein deel haalt de hoogste klassen van 24 meter en meer. */}
-              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            <p className="mt-2 text-md leading-relaxed">
+              Anno 2025 wordt het straatbeeld bepaald door een beperkt aantal soorten.
+              De Iep, Linde en Esdoorn vormen samen de kern van het stedelijke bomenbestand, terwijl tientallen kleinere soorten slechts op de achtergrond voorkomen.
+              Deze verdeling laat zien hoe sterk enkele robuuste stadsbomen de groene identiteit van Amsterdam dragen.
             </p>
             <button
               onClick={() => scrollTo("sect-2")}
-              className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
+              className="text-left mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
             >
-              Volgende ↓
+              Bekijk hoe deze populatie zich door de jaren heen ontwikkelde ↓
             </button>
           </motion.div>
           <motion.div
@@ -289,7 +291,7 @@ export default function HomePage() {
             <div className="flourish-wrapper w-full md:h-[500px] h-[250px]">
               <div
                 className="flourish-embed flourish-chart !w-full"
-                data-src="visualisation/25447580"
+                data-src="visualisation/25497732"
                 data-width="100%"
                 data-height="450"
                 aria-label="Columns"
@@ -327,31 +329,10 @@ export default function HomePage() {
             custom={0.95}
             style={{ transformOrigin: "bottom center" }}
           />
-          <motion.div
-            className="md:w-2/5 w-full"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.4 }}
-          >
-            <h3 className="text-lg font-semibold">
-              {/* Wat verdelt de dikte van een stam over de leeftijd van een boom? */}
-              Scatterplot over Stamdiameter
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed">
-              {/* Hier zien we hoe de gemiddelde stamdiameter zich verhoudt tot het plantjaar. Oudere bomen hebben gemiddeld dikkere stammen. */}
-              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-            </p>
-            <button
-              onClick={() => scrollTo("sect-3")}
-              className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
-            >
-              Volgende ↓
-            </button>
-          </motion.div>
+
           <motion.div
             className="md:w-3/5 w-full flex items-center"
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -365,6 +346,29 @@ export default function HomePage() {
                 aria-label="Scatter"
               />
             </div>
+          </motion.div>
+          <motion.div
+            className="md:w-2/5 w-full"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.4 }}
+          >
+            <h3 className="text-lg font-semibold">
+              {/* Wat verdelt de dikte van een stam over de leeftijd van een boom? */}
+              🍂 Hoe veranderden bomen door de tijd?
+            </h3>
+            <p className="mt-2 text-md leading-relaxed">
+              Elk punt staat voor een gemiddelde aanplant per jaar met stamdiameter op de verticale as en jaartal op de horizontale.
+              De trend laat zien dat bomen door de decennia kleiner zijn geworden: jonger aangeplant, dichter op elkaar en aangepast aan een veranderende stedelijke omgeving.
+              De kleur toont de hoogteklasse: van lage sierbomen tot hoge laanbomen.
+            </p>
+            <button
+              onClick={() => scrollTo("sect-3")}
+              className="text-left mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
+            >
+              Zie vervolgens hoe de aanplant van soorten zich historisch ontwikkelde ↓
+            </button>
           </motion.div>
         </section>
 
@@ -406,17 +410,18 @@ export default function HomePage() {
           >
             <h3 className="text-lg font-semibold">
               {/* Wanneer plantte de stad de meeste bomen? */}
-              Sunburst Diagram over aanleggingen
+              🌳 Van Iep tot Esdoorn: hoe Amsterdam groeide met zijn bomen
             </h3>
-            <p className="mt-2 text-sm leading-relaxed">
-              De sunburst toont de zes jaren met de meeste aanplantingen. Sommige periodes waren echte plantgolven.
-              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            <p className="mt-2 text-md leading-relaxed">
+              Deze grafiek toont de groei van de acht meest aangeplante boomsoorten tussen 1930 en 2025.
+              De Iep en Linde domineren al sinds de wederopbouw, terwijl de Esdoorn en Plataan vooral na 1970 sterk toenemen.
+              Samen vormen ze het skelet van het huidige stadsbos — een levend archief van bijna een eeuw stedelijke vergroening.
             </p>
             <button
               onClick={() => scrollTo("intro")}
               className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
             >
-              Terug omhoog ↑
+              Verder ↓
             </button>
           </motion.div>
           <motion.div
@@ -426,10 +431,10 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <div className="flourish-wrapper w-full md:h-[600px] h-[250px]">
+            <div className="flourish-wrapper w-full md:h-[500px] h-[250px]">
               <div
                 className="flourish-embed flourish-hierarchy !w-full"
-                data-src="visualisation/25429918"
+                data-src="visualisation/25497588"
                 data-width="100%"
                 data-height="450"
                 aria-label="Sunburst"
@@ -521,10 +526,12 @@ export default function HomePage() {
           />
 
           <div className="relative z-10 max-w-5xl px-8">
-            <h3 className="text-xl md:text-2xl font-semibold">Tot slot</h3>
-            <p className="mt-4 text-sm md:text-base leading-relaxed">
-              Een laatste blik op het bomenbestand van Amsterdam. Deze visualisatie bundelt de groei
-              van de bomen die je hierboven zag. Dank voor het meeklimmen.
+            <h3 className="text-xl md:text-2xl font-semibold">🌱 Tot slot</h3>
+            <p className="mt-4 text-md md:text-lg leading-relaxed">
+              Een eeuw aan aanplant laat zien hoe dynamisch stedelijke natuur kan zijn.
+              Amsterdam veranderde niet alleen in bebouwing, maar ook in groenstructuur: nieuwe soorten, jongere bomen, andere hoogtes.
+              Deze visualisatie bundelt die ontwikkeling in één groeiend verhaal — van wortel tot kruin.
+              Dank voor het meeklimmen.
             </p>
           </div>
         </section>
