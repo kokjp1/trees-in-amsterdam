@@ -69,7 +69,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     "/leaf.svg","/leaf2.svg","/leaf3.svg","/leaf4.svg",
     "/leaf5.svg","/leaf6.svg","/leaf7.svg","/leaf8.svg"
   ],
-  iconBaseSize = 16,     // smaller default (was 28)
+  iconBaseSize = 20,     // smaller default (was 28)
   iconJitter = 0.2,      // subtle variance
   rotateDynamic = false, // static random rotation 
 }) => {
