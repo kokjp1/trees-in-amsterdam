@@ -1,3 +1,5 @@
+// FIX: scrollen op touchpad is veel gevoeliger dan een mouse scrollwheel moet een limit instellen
+
 "use client";
 
 import { useEffect, useCallback, useState } from "react";
