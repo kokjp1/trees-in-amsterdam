@@ -74,15 +74,20 @@ export default function HomePage() {
   }, []);
 
   // ---- NEW: Active section -> dynamic shadow color on <main> ----
-  const [activeSection, setActiveSection] = useState<string>("intro");
+  type SectionId = "intro" | "sect-1" | "sect-2" | "sect-3" | "sect-4";
+  const [activeSection, setActiveSection] = useState<SectionId>("intro");
 
-  // Color map per section (exact per jouw lijst)
-  const sectionShadowColors: Record<string, string> = {
-    intro: "#9fe0a1", // Roze
-    "sect-1": "#f2e272", // Donkergroen
-    "sect-2": "#d18f56", // Oranje
-    "sect-3": "#9dc3eb", // Blauw
-    "sect-4": "#9fe0a1", // Lichtgroen
+  // Helper to narrow arbitrary string to SectionId
+  const isSectionId = (id: string): id is SectionId =>
+    ["intro", "sect-1", "sect-2", "sect-3", "sect-4"].includes(id);
+
+  // Color map per section
+  const sectionShadowColors: Record<SectionId, string> = {
+    intro: "#9fe0a1",
+    "sect-1": "#f2e272",
+    "sect-2": "#d18f56",
+    "sect-3": "#9dc3eb",
+    "sect-4": "#9fe0a1",
   };
   // 9dc3eb blauw
   // Oranje d18f56
@@ -102,15 +107,13 @@ export default function HomePage() {
       sections.forEach((sec) => {
         const r = sec.getBoundingClientRect();
         const mainRect = main.getBoundingClientRect();
-
-        // Intersectie binnen de main-viewport
         const top = Math.max(r.top, mainRect.top);
         const bottom = Math.min(r.bottom, mainRect.bottom);
         const visible = Math.max(0, bottom - top);
         const denom = Math.min(vh, r.height);
         const ratio = denom > 0 ? visible / denom : 0;
 
-        if (ratio > bestRatio) {
+        if (ratio > bestRatio && isSectionId(sec.id)) {
           bestRatio = ratio;
           bestId = sec.id;
         }
@@ -150,24 +153,94 @@ export default function HomePage() {
   const currentShadowColor =
     sectionShadowColors[activeSection] ?? sectionShadowColors["intro"];
 
+  // Graph navigation (triple cross) only on graph sections (typed – no any)
+  const graphSections = ["sect-1", "sect-2", "sect-3"] as const;
+  type GraphSection = typeof graphSections[number];
+  const isGraphSection = (s: SectionId): s is GraphSection =>
+    (graphSections as readonly string[]).includes(s);
+  const showGraphNav = isGraphSection(activeSection);
+
   return (
     <main
       data-scroll-root="true"
       className="
-        relative h-screen overflow-y-scroll overflow-x-hidden
-        scroll-smooth snap-y snap-mandatory no-scrollbar
-      "
+      relative h-screen overflow-y-scroll overflow-x-hidden
+      scroll-smooth snap-y snap-mandatory no-scrollbar
+    "
       // Inset vignette die soepel van kleur wisselt
       style={{
-        // Gebruik 2 lagen voor iets meer 'gradient' gevoel aan de randen
-        // (zelfde kleur, verschillende blur/spread levert al een zachte falloff op)
         boxShadow: `
-          inset 0 0 1000px 0px ${currentShadowColor}
-        `,
+        inset 0 0 1000px 0px ${currentShadowColor}
+      `,
         transition: "box-shadow 400ms cubic-bezier(0.22, 0.8, 0.3, 1)",
         backgroundColor: "transparent",
       }}
     >
+      {/* Left side triple-cross nav (Amsterdam flag style) */}
+      <motion.nav
+        initial={{ opacity: 0, x: -12 }}
+        animate={showGraphNav ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
+        transition={{ duration: 0.3 }}
+        aria-label="Navigatie secties"
+        style={{ pointerEvents: showGraphNav ? "auto" : "none" }}
+        className="hidden md:flex flex-col fixed left-4 top-1/2 -translate-y-1/2 z-50"
+      >
+        {graphSections.map((id, idx) => {
+          const active = activeSection === id;
+          // Active = thick red rotated plus, inactive = black
+          const color = active ? "#d60000" : "#000000";
+          return (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              aria-current={active ? "true" : "false"}
+              aria-label={`Ga naar grafiek sectie ${idx + 1}`}
+              className={`
+              group relative w-16 h-16 rounded-lg flex items-center justify-center
+              transition               
+`}
+            >
+              {/* Rotated plus (forms an X visually) */}
+              <span
+                className={`
+                relative block w-10 h-10 rotate-45
+                ${active ? "scale-110" : "opacity-70 group-hover:opacity-90"}
+                transition
+              `}
+                aria-hidden="true"
+              >
+                {/* Horizontal bar */}
+                <span
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <span
+                    className="block rounded-sm"
+                    style={{
+                      backgroundColor: color,
+                      width: "100%",
+                      height: "26%",
+                    }}
+                  />
+                </span>
+                {/* Vertical bar */}
+                <span
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <span
+                    className="block rounded-sm"
+                    style={{
+                      backgroundColor: color,
+                      height: "100%",
+                      width: "26%",
+                    }}
+                  />
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </motion.nav>
+
       {/* Intro */}
       <section
         id="intro"
@@ -183,13 +256,13 @@ export default function HomePage() {
         />
         <div className="relative z-10 p-8 mx-auto max-w-5xl md:max-w-5xl">
           <GradientText text="Een eeuw aan aanplant:&nbsp;" className="text-2xl font-bold" />
-          <h1 className="text-4xl md:text-3xl font-bold">
+          <h1 className="text-2xl md:text-3xl font-bold">
             Hoe de boompopulatie van Amsterdam groeide en veranderd is
           </h1>
           <p className="mt-6 text-base md:text-lg">
-            De Amsterdamse bomen vertellen een verhaal van groei, verjonging en verandering.
-            Van de eerste stadsaanplantingen tot hedendaagse vergroening: elke periode liet een eigen stempel achter.
-            Deze visualisatie brengt een eeuw aan stadsnatuur in beeld — hoe duizenden bomen samen het groene karakter van Amsterdam vormen.
+            Het amsterdamse bomenbestand is ontzettend uitgebreid en divers. Er staan talloze verschillende soorten en subsoorten door de hele stad.
+            Maar hoe is deze populatie door de jaren heen ontstaan? En zijn er bepaalde dingen die opvallen als we de bomen populatie van Amsterdam onder
+            de loep nemen? Deze pagina brengt een eeuw aan stadsnatuur in beeld.
           </p>
 
           {/* KPIs */}
@@ -222,9 +295,9 @@ export default function HomePage() {
 
           <button
             onClick={() => scrollTo("sect-1")}
-            className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-md"
+            className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold md:text-base text-sm"
           >
-            Scroll naar beneden en ontdek hoe het Amsterdamse bomenbestand tot stand kwam. ↓
+            Scroll naar beneden en ontdek het Amsterdamse bomenbestand ↓
           </button>
         </div>
       </section>
@@ -267,12 +340,12 @@ export default function HomePage() {
             viewport={{ once: true, amount: 0.4 }}
           >
             <h3 className="text-lg font-semibold">
-              🌿 De boomsoorten van vandaag: wie domineren Amsterdam?
+              🌿 De boomsoorten van vandaag: hoe is het verdeeld in Amsterdam?
             </h3>
             <p className="mt-2 text-md leading-relaxed">
-              Anno 2025 wordt het straatbeeld bepaald door een beperkt aantal soorten.
-              De Iep, Linde en Esdoorn vormen samen de kern van het stedelijke bomenbestand, terwijl tientallen kleinere soorten slechts op de achtergrond voorkomen.
-              Deze verdeling laat zien hoe sterk enkele robuuste stadsbomen de groene identiteit van Amsterdam dragen.
+              Om de bomenpopulatie van Amsterdam te begrijpen, is het belangrijk om te kijken naar de huidige samenstelling. Deze <u>treemap</u> is opgedeeld
+              in drie delen gebasseerd op de hoeveelheid bomen per soort in 2025. Uit deze visualisatie blijkt overduidelijk dat er een paar soorten de 
+              bomenpopulatie van Amsterdam domineren. Het gaat hier om de Iep, Linde en Esdoorn. Verder zijn er nog een aantal soorten die een flinke bijdrage leveren aan de populatie zoals de Plataan, Eik, Populier en Es. Er is een logische verklaring voor de dominatie van deze 3 boomsoorten: Ze kunnen ontzettend goed tegen natte en droge weersomstandigheden en kunnen in veel soorten grond overleven
             </p>
             <button
               onClick={() => scrollTo("sect-2")}
@@ -356,13 +429,21 @@ export default function HomePage() {
           >
             <h3 className="text-lg font-semibold">
               {/* Wat verdelt de dikte van een stam over de leeftijd van een boom? */}
-              🍂 Hoe veranderden bomen door de tijd?
+              🍂 Hoe zien de bomen eruit ten opzichte van hun aanplant jaar?
             </h3>
-            <p className="mt-2 text-md leading-relaxed">
-              Elk punt staat voor een gemiddelde aanplant per jaar met stamdiameter op de verticale as en jaartal op de horizontale.
-              De trend laat zien dat bomen door de decennia kleiner zijn geworden: jonger aangeplant, dichter op elkaar en aangepast aan een veranderende stedelijke omgeving.
-              De kleur toont de hoogteklasse: van lage sierbomen tot hoge laanbomen.
-            </p>
+            <div className="mt-2 text-md leading-relaxed space-y-3">
+              <p>
+                Dit <u>scatterplot</u> toont drie dingen:
+              </p>
+              <ul className="my-3 list-disc list-inside">
+                <li>Stamdiameter (hoger = dikker)</li>
+                <li>Aanlegjaar (links = ouder)</li>
+                <li>Hoogteklasse (donkerder = hoger)</li>
+              </ul>
+              <p>
+                Deze drie variabelen vormen samen een interessant diagram. Als je door je wimpers kijkt valt iets belangrijks op: hoe ouder de boom, hoe dikker en hoger. Logisch, omdat oudere bomen meer tijd hadden om te groeien. Er zijn echter ook enkele uitschieters (bijv. rond 2010); waarschijnlijk herplant.
+              </p>
+            </div>
             <button
               onClick={() => scrollTo("sect-3")}
               className="text-left mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
@@ -410,12 +491,14 @@ export default function HomePage() {
           >
             <h3 className="text-lg font-semibold">
               {/* Wanneer plantte de stad de meeste bomen? */}
-              🌳 Van Iep tot Esdoorn: hoe Amsterdam groeide met zijn bomen
+              🌳 De reuzen van de bomen populatie: hoe acht soorten Amsterdam opvulden
             </h3>
             <p className="mt-2 text-md leading-relaxed">
-              Deze grafiek toont de groei van de acht meest aangeplante boomsoorten tussen 1930 en 2025.
-              De Iep en Linde domineren al sinds de wederopbouw, terwijl de Esdoorn en Plataan vooral na 1970 sterk toenemen.
-              Samen vormen ze het skelet van het huidige stadsbos — een levend archief van bijna een eeuw stedelijke vergroening.
+            Deze lijn­grafiek toont hoe de reuzen van de bomenpopulatie van Amsterdam groeide tussen 1930 en 2025.
+            Een klein aantal soorten is verantwoordelijk voor het grootste deel van de totale groei. Hun succes is geen toeval: zoals eerder benoemd zijn ze robuust en goed bestand tegen stedelijke omstandigheden.
+            Vanaf de jaren zeventig sloten de es en de esdoorn zich bij de koplopers.</p>
+            <p className="mt-4 text-xs">
+              💡Tip: klik op &quot;Log&quot; boven de grafiek om een duidelijker beeld te krijgen van het begin
             </p>
             <button
               onClick={() => scrollTo("intro")}
@@ -431,7 +514,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <div className="flourish-wrapper w-full md:h-[500px] h-[250px]">
+            <div className="flourish-wrapper w-full md:h-[500px] h-[275px]">
               <div
                 className="flourish-embed flourish-hierarchy !w-full"
                 data-src="visualisation/25497588"
@@ -526,16 +609,24 @@ export default function HomePage() {
           />
 
           <div className="relative z-10 max-w-5xl px-8">
-            <h3 className="text-xl md:text-2xl font-semibold">🌱 Tot slot</h3>
+            <h3 className="text-xl md:text-2xl font-semibold">✨ Tot slot</h3>
             <p className="mt-4 text-md md:text-lg leading-relaxed">
-              Een eeuw aan aanplant laat zien hoe dynamisch stedelijke natuur kan zijn.
-              Amsterdam veranderde niet alleen in bebouwing, maar ook in groenstructuur: nieuwe soorten, jongere bomen, andere hoogtes.
-              Deze visualisatie bundelt die ontwikkeling in één groeiend verhaal — van wortel tot kruin.
-              Dank voor het meeklimmen.
-            </p>
+De Amsterdamse bomenpopulatie vertelt het verhaal van bijna een eeuw aan stedelijke vergroening.
+Samen schetsen deze visualisaties een kwantitatief, maar ook historisch beeld.</p>
           </div>
         </section>
       </div>
     </main>
   );
 }
+
+// OVERIGE CREDITS: 
+
+//  TAKKEN & BOMEN VECTORS: FREEPIK (https://www.freepik.com/)
+//  GRAFIEKEN EMBEDS: FLOURISH.STUDIO (https://flourish.studio/)
+//  FONTS: INTER (https://fonts.google.com/specimen/Inter)
+//  CODE MEDEGESCHREVEN MET CHATGPT-5
+
+//  BEVINDINGEN BEVESTIGEN: MEEST VOORKOMENDE BOOMSOORTEN 
+//  - https://bomencampus.nl/bomen-in-amsterdam/?utm_source=chatgpt.com
+//  - https://bomenbieb.nl/geslachten/ulmus-iep/?_sfm_geslacht=457
