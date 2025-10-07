@@ -1,5 +1,5 @@
 # RUNTIME COMMAND:
-# python GPS_vertaler.py data/bomen_gegevens_amsterdam_jameskok.csv -o data/bomen_coordinaten_vertaald.csv
+# python GPS_vertaler.py data/bomen_gegevens_amsterdam_jameskok.csv -o data/bomen_coordinaten_vertaald.csv  
 
 import re
 import argparse
