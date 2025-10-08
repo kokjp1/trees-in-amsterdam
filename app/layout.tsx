@@ -1,34 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Trees in Amsterdam",
   description: "Trees in Amsterdam datastory",
+  icons: {
+    icon: "/favicon.png", // located in /public
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <head>
+        {/* If you prefer explicit tag instead (optional duplicate):
+        <link rel="icon" href="/favicon.png" sizes="any" />
+        */}
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
