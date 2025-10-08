@@ -325,7 +325,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <div className="flourish-wrapper w-full md:h-[500px] h-[250px]">
+            <div className="flourish-wrapper w-full md:h-[31.25rem] h-[15.625rem]">
               <div
                 className="flourish-embed flourish-chart !w-full"
                 data-src="visualisation/25497732"
@@ -369,7 +369,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             viewport={{ once: true, amount: 0.4 }}
           >
-            <div className="flourish-wrapper w-full md:h-[500px] h-[250px]">
+            <div className="flourish-wrapper w-full md:h-[28.75rem] h-[18.75rem]">
               <div
                 className="flourish-embed flourish-scatter !w-full"
                 data-src="visualisation/25431619"
@@ -479,7 +479,7 @@ export default function HomePage() {
           </motion.div>
           <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
-              className="flourish-wrapper md:h-[460px] h-[300px]"
+              className="flourish-wrapper md:h-[28.75rem] h-[18.75rem]"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
@@ -494,7 +494,7 @@ export default function HomePage() {
               />
             </motion.div>
             <motion.div
-              className="flourish-wrapper md:h-[460px] h-[300px]"
+              className="flourish-wrapper md:h-[28.75rem] h-[18.75rem]"
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, ease: "easeOut", delay: 0.05 }}

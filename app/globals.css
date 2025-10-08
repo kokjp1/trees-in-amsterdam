@@ -131,6 +131,14 @@
   }
 }
 
+html {
+  font-size: 80%; /* 1rem = 12.8px ≈ browser 80% look */
+}
+/* Ensure full-height layout still fits */
+body, html {
+  min-height: 100%;
+}
+
 .flourish-wrapper {
   position: relative;
   overflow: hidden;
