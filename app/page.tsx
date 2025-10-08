@@ -164,16 +164,20 @@ export default function HomePage() {
   const showGraphNav = isGraphSection(activeSection);
 
   const [showSources, setShowSources] = useState(false); // NEW
+  const [showFunFact, setShowFunFact] = useState(false); // NEW fun fact dialog
 
   // Optional: close on ESC
   useEffect(() => {
-    if (!showSources) return;
+    if (!showSources && !showFunFact) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setShowSources(false);
+      if (e.key === "Escape") {
+        setShowSources(false);
+        setShowFunFact(false);
+      }
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [showSources]);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showSources, showFunFact]);
 
   return (
     <main
@@ -358,7 +362,7 @@ export default function HomePage() {
               🌿 De boomsoorten van vandaag: hoe is het verdeeld in Amsterdam?
             </h3>
             <p className="mt-2 text-md leading-relaxed">
-              Om de bomenpopulatie van Amsterdam te begrijpen, is het belangrijk om te kijken naar de huidige samenstelling. Deze <u>treemap</u> is opgedeeld
+              Om de bomenpopulatie van Amsterdam te begrijpen, is het belangrijk om te kijken naar de huidige samenstelling. Deze <em>treemap</em> is opgedeeld
               in drie delen gebasseerd op de hoeveelheid bomen per soort in 2025. Uit deze visualisatie blijkt overduidelijk dat er een paar soorten de
               bomenpopulatie van Amsterdam domineren. Het gaat hier om de Iep, Linde en Esdoorn. Verder zijn er nog een aantal soorten die een flinke bijdrage leveren aan de populatie zoals de Plataan, Eik, Populier en Es. Er is een logische verklaring voor de dominatie van deze 3 boomsoorten: Ze kunnen ontzettend goed tegen natte en droge weersomstandigheden en kunnen in veel soorten grond overleven
             </p>
@@ -442,13 +446,27 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.4 }}
           >
+            {/* Fun fact button LEFT aligned above heading */}
+            <div className="mb-2">
+              <Button
+                type="button"
+                onClick={() => setShowFunFact(true)}
+                variant="secondary"
+                size="sm"
+                className="shadow-md bg-amber-600 hover:bg-amber-700 text-white"
+                aria-haspopup="dialog"
+                aria-expanded={showFunFact ? 'true' : 'false'}
+                aria-controls="funfact-dialog"
+              >
+                💡 Fun fact
+              </Button>
+            </div>
             <h3 className="text-lg font-semibold">
-              {/* Wat verdelt de dikte van een stam over de leeftijd van een boom? */}
               🍂 Hoe zien de bomen eruit ten opzichte van hun aanplant jaar?
             </h3>
             <div className="mt-2 text-md leading-relaxed space-y-3">
               <p>
-                Dit <u>scatterplot</u> toont drie dingen:
+                Dit <em>scatterplot</em> toont drie dingen:
               </p>
               <ul className="my-3 list-disc list-inside">
                 <li>Stamdiameter (hoger = dikker)</li>
@@ -472,7 +490,7 @@ export default function HomePage() {
         <section
           id="sect-3"
           data-watch="true"
-          className="snap-start relative min-h-screen flex flex-col gap-10 pt-32"
+          className="snap-start relative min-h-screen flex flex-col gap-10 pt-"
         >
           {/* Decorative branch (left again with bounce) */}
           <motion.img
@@ -510,17 +528,17 @@ export default function HomePage() {
               🌳 De reuzen van de bomen populatie: hoe acht soorten Amsterdam opvulden
             </h3>
             <p className="mt-4 text-md leading-relaxed">
-              Deze lijn­grafiek toont hoe de reuzen van de bomenpopulatie van Amsterdam groeide tussen 1930 en 2025.
+              Deze <em>lijn­grafiek</em> toont hoe de reuzen van de bomenpopulatie van Amsterdam groeide tussen 1930 en 2025.
               Een klein aantal soorten is verantwoordelijk voor het grootste deel van de totale groei. Hun succes is geen toeval: zoals eerder benoemd zijn ze robuust en goed bestand tegen stedelijke omstandigheden.
               Vanaf de jaren zeventig sloten de es en de esdoorn zich bij de koplopers.
-              Deze interactieve kaart breidt de eerdere lijn­grafiek uit door de groei ruimtelijk te tonen. Elke stip vertegenwoordigt een boom uit de top 8 meest aangeplante soorten.
+              Deze <em>interactieve kaart</em> breidt de eerdere lijn­grafiek uit door de groei ruimtelijk te tonen. Elke stip vertegenwoordigt een boom uit de top 8 meest aangeplante soorten.
               Door de tijdlijn te verplaatsen/de animatie af te spelen, zie je hoe de stad massaal gevuld wordt. De binnenstad vol met iepen en lindes, terwijl de aanplant van de Es, Esdoorn en Eik bijvoorbeeld meer plaatsvind verder van het centrum.
             </p>
             <p className="mt-4 text-xs">
               💡Tip: klik op &quot;Log&quot; boven de grafiek om een duidelijker beeld te krijgen van het begin
             </p>
             <button
-              onClick={() => scrollTo("intro")}
+              onClick={() => scrollTo("sect-4")}
               className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
             >
               Verder ↓
@@ -652,35 +670,17 @@ export default function HomePage() {
             <p className="mt-4 text-md md:text-lg leading-relaxed">
               De Amsterdamse bomenpopulatie vertelt het verhaal van bijna een eeuw aan stedelijke vergroening.
               Samen schetsen deze visualisaties een kwantitatief, maar ook historisch beeld.</p>
+                        <button
+              onClick={() => scrollTo("intro")}
+              className="mt-8 inline-flex items-center text-green-700 hover:text-green-900 hover:underline cursor-pointer font-bold text-sm"
+            >
+              Terug naar boven ↑
+            </button>
 
-            {/* Removed inline sources list; now opened via floating button */}
-            <p className="mt-6 text-sm text-green-800">
-              Bronnen raadplegen? Klik op de Bronnen knop rechtsonder.
-            </p>
           </div>
         </section>
       </div>
-      <div className="mt-12 border-t pt-6" aria-labelledby="credits-heading">
-        <h2 id="credits-heading" className="text-lg font-semibold">Credits</h2>
-        <ul className="list-disc pl-6 space-y-1 text-sm leading-snug">
-          <li>
-            TAKKEN & BOMEN VECTORS: FREEPIK (https://www.freepik.com/)
-          </li>
-          <li>
-            GRAFIEKEN EMBEDS: FLOURISH.STUDIO (https://flourish.studio/)
-          </li>
-          <li>
-            FONTS: INTER (https://fonts.google.com/specimen/Inter)
-          </li>
-          <li>
-            CODE MEDEGESCHREVEN MET CHATGPT-5
-          </li>
-        </ul>
-        <p className="mt-4 text-xs text-neutral-500">
-          Laatste controle: {new Date().getFullYear()} – Bij gebruik van deze visualisaties, vermeld alstublieft de bronnen.
-        </p>
-      </div>
-
+    
       {/* Floating Bronnen button (shadcn Button) */}
       <Button
         type="button"
@@ -697,7 +697,7 @@ export default function HomePage() {
         Bronnen
       </Button>
 
-      {/* Modal / dialog */}
+      {/* Sources Modal / dialog */}
       {showSources && (
         <div
           id="sources-dialog-wrapper"
@@ -778,17 +778,60 @@ export default function HomePage() {
           </motion.div>
         </div>
       )}
+
+      {/* Fun Fact Modal / dialog */}
+      {showFunFact && (
+        <div
+          id="funfact-dialog-wrapper"
+          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center"
+        >
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setShowFunFact(false)}
+            aria-hidden="true"
+          />
+          <motion.div
+            id="funfact-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="funfact-heading"
+            initial={{ y: 50, opacity: 0, scale: 0.96 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 40, opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.25, ease: [0.22, 0.8, 0.3, 1] }}
+            className="relative w-full sm:max-w-md max-h-[80vh] overflow-y-auto rounded-t-2xl sm:rounded-xl
+                       bg-background text-foreground shadow-xl border p-6"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <h4 id="funfact-heading" className="text-lg font-semibold flex items-center gap-2">
+                🌳 Fun fact: Iepen in Amsterdam
+              </h4>
+              <Button
+                onClick={() => setShowFunFact(false)}
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                aria-label="Sluit fun fact"
+              >
+                ✕
+              </Button>
+            </div>
+            <div className="mt-4 space-y-3 text-sm leading-relaxed">
+              <p>Amsterdam is de iepenhoofdstad van de wereld.</p>
+              <p>De stad telt meer dan 75.000 iepen meer dan waar ook ter wereld.</p>
+              <p>
+                Elk voorjaar wordt dat gevierd tijdens het Springsnow-festival. Er is zelfs een officiële Iepenroute
+                van acht kilometer langs de mooiste exemplaren.
+              </p>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <Button variant="outline" onClick={() => setShowFunFact(false)}>
+                Sluiten
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </main>
   );
 }
-
-// OVERIGE CREDITS:
-
-//  TAKKEN & BOMEN VECTORS: FREEPIK (https://www.freepik.com/)
-//  GRAFIEKEN EMBEDS: FLOURISH.STUDIO (https://flourish.studio/)
-//  FONTS: INTER (https://fonts.google.com/specimen/Inter)
-//  CODE MEDEGESCHREVEN MET CHATGPT-5
-
-//  BEVINDINGEN BEVESTIGEN: MEEST VOORKOMENDE BOOMSOORTEN
-//  - https://bomencampus.nl/bomen-in-amsterdam/?utm_source=chatgpt.com
-//  - https://bomenbieb.nl/geslachten/ulmus-iep/?_sfm_geslacht=457
