@@ -72,8 +72,11 @@ export default function HomePage() {
 
   type SectionId = "intro" | "sect-1" | "sect-2" | "sect-3" | "sect-4";
   const [activeSection, setActiveSection] = useState<SectionId>("intro");
-  const isSectionId = (id: string): id is SectionId =>
-    ["intro", "sect-1", "sect-2", "sect-3", "sect-4"].includes(id);
+  const isSectionId = useCallback(
+    (id: string): id is SectionId =>
+      id === "intro" || id === "sect-1" || id === "sect-2" || id === "sect-3" || id === "sect-4",
+    []
+  );
   const sectionShadowColors: Record<SectionId, string> = {
     intro: "#9fe0a1",
     "sect-1": "#f2e272",
@@ -113,7 +116,7 @@ export default function HomePage() {
       main.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [activeSection]);
+  }, [activeSection, isSectionId]);
 
   type CubicBezier = [number, number, number, number];
   const baseEase: CubicBezier = [0.22, 0.8, 0.3, 1];
